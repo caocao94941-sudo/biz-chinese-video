@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: biz-chinese-video
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"

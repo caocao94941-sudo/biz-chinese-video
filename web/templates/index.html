@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商务中文视频生成器</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📹 商务中文视频生成器</h1>
+    <p class="subtitle">上传 Excel 课程表 → 自动生成教学视频 → 下载</p>
+  </header>
+
+  <!-- Step 1 -->
+  <section class="step">
+    <div class="step-header"><span class="step-num">1</span><h2>下载模板</h2></div>
+    <div class="step-body">
+      <p class="desc">下载 Excel 模板，用 Excel/WPS 打开编辑你的课程内容。</p>
+      <div class="action-row">
+        <a href="/api/template/download" class="btn btn-primary">⬇️ 下载空白模板 (.xlsx)</a>
+        <a href="/api/template/sample" class="btn btn-outline">📄 下载示例（个人介绍）</a>
+      </div>
+      <details class="guide">
+        <summary>📖 Excel 填写说明</summary>
+        <div class="guide-body">
+          <p>Excel 包含 4 个 Sheet：</p>
+          <table><tr><th>Sheet</th><th>内容</th></tr>
+          <tr><td>课程信息</td><td>标题、HSK等级、商务小贴士、语音设置</td></tr>
+          <tr><td>课文句子</td><td>每行一句：中文、拼音、英文、高亮词（逗号分隔）</td></tr>
+          <tr><td>词汇</td><td>每行一个词：中文、拼音、英文、词性、HSK等级、Emoji、首次出现句号</td></tr>
+          <tr><td>语法</td><td>每行一个语法点：模式、解释、例句、HSK等级、首次出现句号</td></tr></table>
+          <p><strong>首次出现句号</strong>：填数字，表示该词汇/语法在第几句首次出现。视频中词汇和语法会随句子逐步累积显示。</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Step 2 -->
+  <section class="step">
+    <div class="step-header"><span class="step-num">2</span><h2>上传 & 生成</h2></div>
+    <div class="step-body">
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".xlsx,.json" hidden>
+        <div class="upload-content" onclick="document.getElementById('fileInput').click()">
+          <span class="upload-icon">📊</span>
+          <p>点击选择或拖拽 Excel 文件到此处</p>
+          <p class="upload-hint">支持 .xlsx 和 .json 格式</p>
+        </div>
+      </div>
+      <div id="uploadStatus" class="status hidden"></div>
+      <div id="previewCard" class="preview-card hidden"></div>
+      <div id="generateSection" class="hidden">
+        <div class="settings-row">
+          <label>语音：<select id="voiceSelect">
+            <option value="zh-CN-XiaoxiaoNeural">女声 (Xiaoxiao)</option>
+            <option value="zh-CN-YunxiNeural">男声 (Yunxi)</option>
+          </select></label>
+          <label>格式：<select id="formatSelect">
+            <option value="both">竖屏 + 横屏</option>
+            <option value="vertical">仅竖屏 (1080×1920)</option>
+            <option value="horizontal">仅横屏 (1920×1080)</option>
+          </select></label>
+        </div>
+        <button class="btn btn-primary btn-large" id="generateBtn" onclick="generateVideo()">🎬 生成视频</button>
+        <div id="generateStatus" class="status hidden"></div>
+        <div class="progress-bar hidden" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3 -->
+  <section class="step hidden" id="downloadSection">
+    <div class="step-header"><span class="step-num">3</span><h2>下载视频</h2></div>
+    <div class="step-body"><div id="downloadList" class="download-list"></div></div>
+  </section>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+db/*.db
+output/
+samples/
+site/
+biz-chinese-site.zip
+.git/
+*.pyc

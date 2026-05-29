@@ -1,0 +1,19 @@
+# Database
+db/*.db
+
+# Output
+output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Playwright
+playwright-browsers/
+
+# Temp
+*.tmp
+*.bak

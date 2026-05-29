@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920, height=1080">
+<style>
+/* ===== Reset & Base ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 1920px;
+  height: 1080px;
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #0a1628 0%, #132044 40%, #1a2a5e 70%, #0f1d3d 100%);
+  color: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* ===== Layout: 2-column ===== */
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 28px;
+  gap: 24px;
+}
+
+.left-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-col {
+  width: 580px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== Top Banner ===== */
+.topic-banner {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+  border-radius: 16px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 6px 24px rgba(37,99,235,0.3);
+}
+
+.topic-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.topic-text h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.topic-text h1 .highlight { color: #fbbf24; }
+
+.topic-text .pinyin {
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+}
+
+.hsk-tag {
+  margin-left: auto;
+  background: rgba(255,255,255,0.15);
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ===== Hero + Sentence row ===== */
+.hero-sentence-row {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+.hero-image {
+  width: 480px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d4a7a 100%);
+  flex-shrink: 0;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-image .placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  opacity: 0.3;
+}
+
+/* ===== Sentence Card ===== */
+.sentence-card {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(59,130,246,0.3);
+  border-radius: 18px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.sentence-card .text-zh {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.sentence-card .text-zh mark {
+  color: #f59e0b;
+  background: none;
+  font-weight: 800;
+}
+
+.sentence-card .text-pinyin {
+  font-size: 22px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.sentence-card .text-en {
+  font-size: 22px;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+}
+
+.sentence-card .speaker-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  background: rgba(59,130,246,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.sentence-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.sentence-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+
+.sentence-dots .dot.active {
+  background: #3b82f6;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ===== Business Tip (bottom of left col) ===== */
+.business-tip {
+  background: linear-gradient(135deg, rgba(37,99,235,0.25) 0%, rgba(30,64,175,0.25) 100%);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 16px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.business-tip .tip-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(245,158,11,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.business-tip .tip-content .tip-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fbbf24;
+  margin-bottom: 4px;
+}
+
+.business-tip .tip-content .tip-title .en {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.business-tip .tip-content .tip-zh {
+  font-size: 17px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.4;
+}
+
+.business-tip .tip-content .tip-en {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.4;
+}
+
+/* ===== Right Column: Vocab + Grammar ===== */
+.vocab-card, .grammar-card {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.card-header .icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.vocab-card .card-header .icon { background: rgba(59,130,246,0.2); }
+.grammar-card .card-header .icon { background: rgba(245,158,11,0.2); }
+
+.card-header .title-zh {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.vocab-card .card-header .title-zh { color: #60a5fa; }
+.grammar-card .card-header .title-zh { color: #f59e0b; }
+
+.card-header .title-en {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  margin-left: 6px;
+}
+
+/* NEW tag */
+.new-tag {
+  background: #f59e0b;
+  color: #000;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 5px;
+  margin-left: 6px;
+  letter-spacing: 1px;
+}
+
+.vocab-item.is-new {
+  background: rgba(245,158,11,0.08);
+  border-radius: 6px;
+  padding: 8px 6px;
+  margin: 0 -6px;
+}
+
+.vocab-item.is-new .word { color: #fbbf24; }
+
+.grammar-pattern.is-new {
+  border-color: rgba(245,158,11,0.6);
+  background: rgba(245,158,11,0.18);
+}
+
+.count-badge {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  padding: 1px 8px;
+  border-radius: 8px;
+  margin-left: auto;
+}
+
+.empty-hint {
+  font-size: 15px;
+  color: rgba(255,255,255,0.3);
+  font-style: italic;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.grammar-history {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.grammar-history-item {
+  font-size: 14px;
+  color: rgba(255,255,255,0.45);
+  padding: 3px 0;
+}
+
+.grammar-history-item .hist-en {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  margin-left: 4px;
+}
+
+/* Vocab items */
+.vocab-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.vocab-item:last-child { border-bottom: none; }
+.vocab-item .emoji { font-size: 18px; width: 28px; text-align: center; }
+.vocab-item .word { font-size: 22px; font-weight: 700; min-width: 50px; }
+.vocab-item .pinyin { font-size: 17px; color: #60a5fa; min-width: 80px; }
+.vocab-item .meaning { font-size: 17px; color: rgba(255,255,255,0.6); }
+
+/* Grammar */
+.grammar-pattern {
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}
+
+.grammar-pattern .pattern {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.grammar-detail .pinyin {
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+.grammar-detail .explanation {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.grammar-detail .example-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 4px;
+}
+
+.grammar-detail .example-zh {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.grammar-detail .example-pinyin {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  font-style: italic;
+  margin-bottom: 3px;
+}
+
+.grammar-detail .example-en {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.3;
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- Left Column -->
+  <div class="left-col">
+    <!-- Top Banner -->
+    <div class="topic-banner">
+      <div class="topic-icon">📅</div>
+      <div class="topic-text">
+        <h1>今日主题: <span class="highlight">{{ lesson.title_zh }}</span></h1>
+        <div class="pinyin">jīnrì zhǔtí: {{ lesson.title_pinyin }}</div>
+      </div>
+      <div class="hsk-tag">{{ lesson.hsk_level }}</div>
+    </div>
+
+    <!-- Hero + Sentence -->
+    <div class="hero-sentence-row">
+      <div class="hero-image">
+        {% if topic_image_path %}
+        <img src="{{ topic_image_path }}" alt="{{ lesson.title_en }}">
+        {% else %}
+        <div class="placeholder">🧑‍💼</div>
+        {% endif %}
+      </div>
+
+      <div class="sentence-card">
+        <div class="text-zh">{{ current_sentence_html }}</div>
+        <div class="text-pinyin">{{ current_sentence.text_pinyin }}</div>
+        <div class="text-en">{{ current_sentence.text_en }}</div>
+        <div class="speaker-icon">🔊</div>
+        <div class="sentence-dots">
+          {% for s in sentences %}
+          <div class="dot {% if s.sort_order == current_sentence.sort_order %}active{% endif %}"></div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Tip -->
+    <div class="business-tip">
+      <div class="tip-icon">💼</div>
+      <div class="tip-content">
+        <div class="tip-title">商务小贴士 <span class="en">Business Tip</span></div>
+        <div class="tip-zh">{{ lesson.business_tip_zh or '' }}</div>
+        <div class="tip-en">{{ lesson.business_tip_en or '' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column -->
+  <div class="right-col">
+    <!-- Vocabulary (progressive accumulation) -->
+    <div class="vocab-card">
+      <div class="card-header">
+        <div class="icon">📖</div>
+        <span class="title-zh">{{ lesson.hsk_level }} 词汇</span>
+        <span class="title-en">Vocabulary</span>
+        <span class="count-badge">{{ vocabulary|length }}</span>
+      </div>
+      {% if vocabulary|length == 0 %}
+      <div class="empty-hint">词汇将随课文逐步出现...</div>
+      {% endif %}
+      {% for v in vocabulary[:6] %}
+      <div class="vocab-item {% if v in new_vocab %}is-new{% endif %}">
+        <span class="emoji">{{ v.icon_emoji or '·' }}</span>
+        <span class="word">{{ v.word_zh }}</span>
+        <span class="pinyin">{{ v.word_pinyin }}</span>
+        <span class="meaning">{{ v.word_en }}</span>
+        {% if v in new_vocab %}<span class="new-tag">NEW</span>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Grammar (progressive accumulation) -->
+    <div class="grammar-card">
+      <div class="card-header">
+        <div class="icon">💡</div>
+        <span class="title-zh">语法点</span>
+        <span class="title-en">Grammar</span>
+        <span class="count-badge">{{ grammar_points|length }}</span>
+      </div>
+      {% if grammar_points|length == 0 %}
+      <div class="empty-hint">语法点将随课文逐步出现...</div>
+      {% endif %}
+      {% if current_grammar %}
+      <div class="grammar-pattern {% if current_grammar in new_grammar %}is-new{% endif %}">
+        <div class="pattern">{{ current_grammar.pattern_zh }}</div>
+        {% if current_grammar in new_grammar %}<span class="new-tag">NEW</span>{% endif %}
+      </div>
+      <div class="grammar-detail">
+        <div class="pinyin">{{ current_grammar.pattern_pinyin or '' }}</div>
+        <div class="explanation">{{ current_grammar.explanation_zh or '' }}</div>
+        <div class="example-label">例句：</div>
+        <div class="example-zh">{{ current_grammar.example_zh or '' }}</div>
+        <div class="example-pinyin">{{ current_grammar.example_pinyin or '' }}</div>
+        <div class="example-en">{{ current_grammar.example_en or '' }}</div>
+      </div>
+      {% endif %}
+      {% if grammar_points|length > 1 %}
+      <div class="grammar-history">
+        {% for g in grammar_points[:-1] %}
+        <div class="grammar-history-item">✓ {{ g.pattern_zh }} <span class="hist-en">{{ g.pattern_en }}</span></div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "lesson": {
+    "title_zh": "个人介绍",
+    "title_pinyin": "gèrén jièshào",
+    "title_en": "Self Introduction",
+    "hsk_level": "HSK1-2",
+    "category": "商务汉语",
+    "business_tip_zh": "在商务场合，自我介绍要简洁、自信、突出核心能力。",
+    "business_tip_en": "In business situations, self-introduction should be concise, confident and highlight your core strengths."
+  },
+  "sentences": [
+    {
+      "text_zh": "大家好，我叫张三。",
+      "text_pinyin": "Dàjiā hǎo, wǒ jiào Zhāng Sān.",
+      "text_en": "Hello everyone, my name is Zhang San.",
+      "highlight_words": ["大家", "我叫"]
+    },
+    {
+      "text_zh": "我今年二十五岁。",
+      "text_pinyin": "Wǒ jīnnián èrshíwǔ suì.",
+      "text_en": "I am twenty-five years old this year.",
+      "highlight_words": ["今年", "岁"]
+    }
+  ],
+  "vocabulary": [
+    {
+      "word_zh": "大家",
+      "word_pinyin": "dàjiā",
+      "word_en": "everyone",
+      "word_pos": "pron.",
+      "hsk_level": "HSK1",
+      "icon_emoji": "👥",
+      "first_appear_sentence": 1
+    },
+    {
+      "word_zh": "我叫",
+      "word_pinyin": "wǒ jiào",
+      "word_en": "my name is",
+      "word_pos": "v.",
+      "hsk_level": "HSK1",
+      "icon_emoji": "🙋",
+      "first_appear_sentence": 1
+    }
+  ],
+  "grammar": [
+    {
+      "pattern_zh": "我叫……",
+      "pattern_pinyin": "wǒ jiào...",
+      "pattern_en": "My name is...",
+      "explanation_zh": "用于自我介绍时说出自己的名字。",
+      "explanation_en": "Used to state your name during self-introduction.",
+      "example_zh": "我叫李明。",
+      "example_pinyin": "Wǒ jiào Lǐ Míng.",
+      "example_en": "My name is Li Ming.",
+      "hsk_level": "HSK1",
+      "first_appear_sentence": 1
+    }
+  ],
+  "settings": {
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "video_format": "both"
+  }
+}
